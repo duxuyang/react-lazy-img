@@ -1,0 +1,94 @@
+{
+  "version": "0.0.1",
+  "name": "react-lazyimg-dxy",
+  "author": "duxuyang",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/react-lazy-image.esm.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --passWithNoTests",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
+  },
+  "peerDependencies": {
+    "react": ">=16"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "size-limit": [
+    {
+      "path": "dist/react-lazy-image.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/react-lazy-image.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^7.0.8",
+    "@types/classnames": "^2.3.1",
+    "@types/react": "^17.0.39",
+    "@types/react-dom": "^17.0.11",
+    "autoprefixer": "^10.4.2",
+    "cssnano": "^5.0.17",
+    "husky": "^7.0.4",
+    "less": "^4.1.2",
+    "postcss": "^8.4.6",
+    "postcss-loader": "^6.2.1",
+    "postcss-modules": "^4.3.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "rollup-plugin-postcss": "^4.0.2",
+    "size-limit": "^7.0.8",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.3.1",
+    "typescript": "^4.5.5"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "Android >= 4.4",
+    "iOS >= 9"
+  ],
+  "keywords": [
+    "React",
+    "Image",
+    "Lazy",
+    "load",
+    "img",
+    "lazy-load-images",
+    "react-lazy-img",
+    "react-lazy-image",
+    "react-component",
+    "lazyload",
+    "lazyloading",
+    "lazy-loading",
+    "lazyload-images"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/duxuyang/react-lazy-img.git"
+  },
+  "homepage": "https://github.com/duxuyang/react-lazy-img#readme"
+}
