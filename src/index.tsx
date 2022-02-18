@@ -1,5 +1,13 @@
 import React, { ReactNode, useEffect, useRef, useState } from 'react';
+import type { CSSProperties, ReactElement } from 'react'
+import classNames from 'classnames'
 import './index.less';
+
+export interface NativeProps<S extends string = never> {
+  className?: string
+  style?: CSSProperties & Partial<Record<S, string>>
+  tabIndex?: number
+}
 
 type ImageProps = {
   src: string;
@@ -14,7 +22,7 @@ type ImageProps = {
   rootMargin?: string;
   threshold?: number | number[];
   root?: HTMLDivElement;
-};
+} & NativeProps<'--width' | '--height'>;
 
 const classPrefix = `dxy-image`;
 const toCSSLength = (val: string | number) => {
@@ -31,7 +39,35 @@ const defaultProps = {
   ),
 };
 
-const Index = (props: ImageProps) => {
+export function withNativeProps(
+  props: any,
+  element: ReactElement
+) {
+  const p = {
+    ...element.props,
+  }
+  if (props.className) {
+    p.className = classNames(element.props.className, props.className)
+  }
+  if (props.style) {
+    p.style = {
+      ...p.style,
+      ...props.style,
+    }
+  }
+  if (props.tabIndex !== undefined) {
+    p.tabIndex = props.tabIndex
+  }
+  for (const key in props) {
+    if (!props.hasOwnProperty(key)) continue
+    if (key.startsWith('data-') || key.startsWith('aria-')) {
+      p[key] = props[key]
+    }
+  }
+  return React.cloneElement(element, p)
+}
+
+const Index =(props: ImageProps) => {
   const { src,failSrc, alt, width, height, onClick, root, rootMargin, threshold } = {
     ...defaultProps,
     ...props,
@@ -84,36 +120,34 @@ const Index = (props: ImageProps) => {
     style['--height'] = toCSSLength(props.height);
   }
 
-  return (
-    <div className={classPrefix} style={style} ref={currentRef}>
-      {isVisible ? (
-        <img
-          className={`${classPrefix}-img`}
-          src={!failed?src:failSrc}
-          alt={alt}
-          onClick={onClick}
-          onLoad={() => {
-            // setState({ loaded: true });
-          }}
-          onError={() => {
-            setFailed(true);
-          }}
-          style={{
-            objectFit: props.fit,
-          }}
-        />
-      ) : (
-        <span
-          style={{
-            display: 'inline-block',
-            width: width || 'auto',
-            height: height || 'auto',
-            backgroundColor: '#f3f3f3',
-          }}
-        ></span>
-      )}
-    </div>
-  );
+  return withNativeProps(props, <div className={classPrefix} style={style} ref={currentRef}>
+    {isVisible ? (
+      <img
+        className={`${classPrefix}-img`}
+        src={!failed?src:failSrc}
+        alt={alt}
+        onClick={onClick}
+        onLoad={() => {
+          // setState({ loaded: true });
+        }}
+        onError={() => {
+          setFailed(true);
+        }}
+        style={{
+          objectFit: props.fit,
+        }}
+      />
+    ) : (
+      <span
+        style={{
+          display: 'inline-block',
+          width: width || 'auto',
+          height: height || 'auto',
+          backgroundColor: '#f3f3f3',
+        }}
+      ></span>
+    )}
+  </div>);
 };
 
 export default Index;

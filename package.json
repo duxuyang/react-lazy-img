@@ -1,5 +1,5 @@
 {
-  "version": "0.0.1",
+  "version": "0.0.3",
   "name": "react-lazyimg-dxy",
   "author": "duxuyang",
   "license": "MIT",
@@ -90,5 +90,8 @@
     "type": "git",
     "url": "git+https://github.com/duxuyang/react-lazy-img.git"
   },
-  "homepage": "https://github.com/duxuyang/react-lazy-img#readme"
+  "homepage": "https://github.com/duxuyang/react-lazy-img#readme",
+  "dependencies": {
+    "classnames": "^2.3.1"
+  }
 }
